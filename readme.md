@@ -32,8 +32,14 @@ menuTree.ExpandAllGroups();
 
 The user can then either double-click an item to run the action, or select it and hit the enter key.
 
-![Screenshot](https://raw.githubusercontent.com/nooogle/CDS.DemoAppMenus/master/CDS.WinFormsMenus/ScreenShot.png)
+![Screenshot](https://raw.githubusercontent.com/nooogle/CDS.WinFormsMenus/master/ScreenShot.png)
 
+
+## Build Instructions
+
+Follow the standard practice for building a .Net project using Nerdbank.GitVersioning.
+The version.json file is automatically updated with the new version number, or
+can be manually updated for a major or minor version change.
 
 
 
