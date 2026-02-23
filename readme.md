@@ -4,7 +4,7 @@ CDS.WinFormsMenus is a library for creating very simple and quick
 tree-view based menus on WinForms apps. It is great for simple demo and test applications, where
 a conventional menu doesn't quite fit the pattern. 
 
-It's available for .Net 8 and .Net Framework 4.8 applications.
+It's available for .Net 8, .Net 10 and .Net Framework 4.8 applications.
 
 It will only save you a few minutes of coding, but that leaves more 
 time for the fun stuff!
@@ -20,15 +20,19 @@ After referencing the library, add a `CDS.WinFormsMenus.Basic.MenuTree` control 
 You can this create the menu like this:
 
 ```csharp
-var formsGroup = menuTree.AddGroup("Forms", tooltip: "A group of items for showing colourful forms!");
-formsGroup.AddDemo("Red form", "Opens a red form", this, () => new RedForm());
-formsGroup.AddDemo("Blue form", "Opens a blue form", this, () => new BlueForm());
+var api = menuTree.Api;
 
-var actionsGroup = menuTree.AddGroup("Actions");
-actionsGroup.AddDemo("Message box", "Shows a message box", this, ShowMessageBox);
+var formsGroup = api.AddGroup("Forms", tooltip: "A group of items for showing colourful forms!");
+formsGroup.AddItem("Red form", "Opens a red form", this, () => new RedForm());
+formsGroup.AddItem("Blue form", "Opens a blue form", this, () => new BlueForm());
 
-menuTree.ExpandAllGroups();
+var actionsGroup = api.AddGroup("Actions");
+actionsGroup.AddItem("Message box", "Shows a message box", ShowMessageBox);
+
+api.ExpandAllGroups();
 ```
+
+Using `menuTree.Api` is recommended — it exposes only the library's own methods and properties, keeping IntelliSense focused and uncluttered by the underlying `UserControl` surface.
 
 The user can then either double-click an item to run the action, or select it and hit the enter key.
 
@@ -37,9 +41,10 @@ The user can then either double-click an item to run the action, or select it an
 
 ## Build Instructions
 
-Follow the standard practice for building a .Net project using Nerdbank.GitVersioning.
-The version.json file is automatically updated with the new version number, or
-can be manually updated for a major or minor version change.
+Follow the standard practice for building a .Net project using MinVer.
+Versions are derived automatically from Git tags (e.g. `v1.2.0`). To publish a
+new release, create and push a tag: `git tag v1.2.0 && git push --tags`.
+Between tags, MinVer appends a pre-release suffix automatically (e.g. `1.2.0-alpha.0.3`).
 
 
 

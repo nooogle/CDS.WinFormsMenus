@@ -42,7 +42,7 @@ public partial class MenuTree : UserControl, IMenuTreeApi
     {
         try
         {
-            var action = e.Node.Tag as Action;
+            var action = e.Node?.Tag as Action;
             action?.Invoke();
         }
         catch (Exception ex)
