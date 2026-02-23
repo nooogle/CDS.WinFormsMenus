@@ -20,6 +20,7 @@
     <PackageTags>winforms;treeview;menu;ui;windows-forms;gui</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>
