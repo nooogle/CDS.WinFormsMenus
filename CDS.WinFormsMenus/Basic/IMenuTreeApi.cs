@@ -28,6 +28,12 @@ public interface IMenuTreeApi
     void SelectMenuItem(MenuItem menuItem);
 
     /// <summary>
+    /// Gets or sets which mouse interactions activate a menu item's action.
+    /// Defaults to <see cref="MouseActivation.DoubleClick"/>.
+    /// </summary>
+    MouseActivation MouseActivation { get; set; }
+
+    /// <summary>
     /// Expands all groups in the tree.
     /// </summary>
     void ExpandAllGroups();

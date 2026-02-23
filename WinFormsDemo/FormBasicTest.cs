@@ -27,6 +27,7 @@ public partial class FormBasicTest : Form
         actionsGroup.AddItem("Message box", "Shows a message box", ShowMessageBox);
 
         menuTree.API.ExpandAllGroups();
+        menuTree.API.MouseActivation = CDS.WinFormsMenus.Basic.MouseActivation.SingleClick;
         //menuTree.API.SelectMenuItem(redFormMenuItem);
     }
 

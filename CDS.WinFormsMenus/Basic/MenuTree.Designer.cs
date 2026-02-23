@@ -41,6 +41,7 @@
             treeView.Size = new Size(214, 165);
             treeView.TabIndex = 0;
             treeView.NodeMouseDoubleClick += treeView_NodeMouseDoubleClick;
+            treeView.NodeMouseClick += treeView_NodeMouseClick;
             treeView.KeyPress += treeView_KeyPress;
             // 
             // MenuTree

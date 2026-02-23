@@ -1,4 +1,6 @@
-﻿namespace CDS.WinFormsMenus.Basic;
+﻿using System.ComponentModel;
+
+namespace CDS.WinFormsMenus.Basic;
 
 
 /// <summary>
@@ -13,6 +15,13 @@ public partial class MenuTree : UserControl, IMenuTreeApi
     /// methods and properties without the noise of the underlying <see cref="UserControl"/> base class.
     /// </summary>
     public IMenuTreeApi API => this;
+
+    /// <summary>
+    /// Gets or sets which mouse interactions activate a menu item's action.
+    /// Defaults to <see cref="MouseActivation.DoubleClick"/>.
+    /// </summary>
+    [DefaultValue(MouseActivation.DoubleClick)]
+    public MouseActivation MouseActivation { get; set; } = MouseActivation.DoubleClick;
 
     /// <summary>
     /// Adds a new group to the tree view.
@@ -40,6 +49,8 @@ public partial class MenuTree : UserControl, IMenuTreeApi
     /// <param name="e">The <see cref="TreeNodeMouseClickEventArgs"/> instance containing the event data.</param>
     private void treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
     {
+        if (MouseActivation != MouseActivation.DoubleClick) return;
+
         try
         {
             var action = e.Node?.Tag as Action;
@@ -49,6 +60,26 @@ public partial class MenuTree : UserControl, IMenuTreeApi
         {
             // Log or handle the exception as needed
             throw new InvalidOperationException("An error occurred while handling the node double-click event.", ex);
+        }
+    }
+
+    /// <summary>
+    /// Handles the NodeMouseClick event of the tree view.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="TreeNodeMouseClickEventArgs"/> instance containing the event data.</param>
+    private void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+    {
+        if (MouseActivation == MouseActivation.DoubleClick) return;
+
+        try
+        {
+            var action = e.Node?.Tag as Action;
+            action?.Invoke();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("An error occurred while handling the node click event.", ex);
         }
     }
 
