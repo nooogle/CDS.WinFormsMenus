@@ -20,7 +20,7 @@ After referencing the library, add a `CDS.WinFormsMenus.Basic.MenuTree` control 
 You can this create the menu like this:
 
 ```csharp
-var api = menuTree.Api;
+var api = menuTree.API;
 
 var formsGroup = api.AddGroup("Forms", tooltip: "A group of items for showing colourful forms!");
 formsGroup.AddItem("Red form", "Opens a red form", this, () => new RedForm());
@@ -32,9 +32,15 @@ actionsGroup.AddItem("Message box", "Shows a message box", ShowMessageBox);
 api.ExpandAllGroups();
 ```
 
-Using `menuTree.Api` is recommended — it exposes only the library's own methods and properties, keeping IntelliSense focused and uncluttered by the underlying `UserControl` surface.
+Using `menuTree.API` is recommended — it exposes only the library's own methods and properties, keeping IntelliSense focused and uncluttered by the underlying `UserControl` surface.
 
-The user can then either double-click an item to run the action, or select it and hit the enter key.
+By default, items are activated by double-clicking or pressing Enter. You can change this to single-click by setting the `MouseActivation` property:
+
+```csharp
+menuTree.API.MouseActivation = MouseActivation.SingleClick;
+```
+
+The available values are `SingleClick` and `DoubleClick`. The Enter key always activates the selected item regardless of this setting.
 
 ![Screenshot](https://raw.githubusercontent.com/nooogle/CDS.WinFormsMenus/master/ScreenShot.png)
 
