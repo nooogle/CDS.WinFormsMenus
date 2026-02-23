@@ -8,6 +8,11 @@ public class MenuItem
     private TreeNode treeNode;
 
     /// <summary>
+    /// Gets the underlying tree node for this menu item.
+    /// </summary>
+    internal TreeNode TreeNode => treeNode;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MenuItem"/> class.
     /// </summary>
     /// <param name="name">The name of the demo.</param>

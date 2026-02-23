@@ -19,6 +19,7 @@
     <PackageProjectUrl>https://github.com/nooogle/CDS.WinFormsMenus</PackageProjectUrl>
     <PackageTags>winforms;treeview;menu;ui;windows-forms;gui</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,7 +37,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.7.115">
+    <PackageReference Include="MinVer" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -4,9 +4,15 @@
 /// <summary>
 /// A tree view control for displaying a menu of demos.
 /// </summary>
-public partial class MenuTree : UserControl
+public partial class MenuTree : UserControl, IMenuTreeApi
 {
     public MenuTree() => InitializeComponent();
+
+    /// <summary>
+    /// Gets the custom API surface of this control, providing focused access to its
+    /// methods and properties without the noise of the underlying <see cref="UserControl"/> base class.
+    /// </summary>
+    public IMenuTreeApi API => this;
 
     /// <summary>
     /// Adds a new group to the tree view.
@@ -66,6 +72,16 @@ public partial class MenuTree : UserControl
             // Log or handle the exception as needed
             throw new InvalidOperationException("An error occurred while handling the key press event.", ex);
         }
+    }
+
+    /// <summary>
+    /// Selects the given menu item in the tree and activates it as if the user had double-clicked it.
+    /// </summary>
+    /// <param name="menuItem">The menu item to select and activate.</param>
+    public void SelectMenuItem(MenuItem menuItem)
+    {
+        treeView.SelectedNode = menuItem.TreeNode;
+        menuItem.Run();
     }
 
     /// <summary>

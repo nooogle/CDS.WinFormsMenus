@@ -19,14 +19,15 @@ public partial class FormBasicTest : Form
     /// </summary>
     private void InitializeMenuTree()
     {
-        var formsGroup = menuTree.AddGroup("Forms", tooltip: "A group of items for showing colourful forms!");
-        formsGroup.AddDemo("Red form", "Opens a red form", this, () => new RedForm());
-        formsGroup.AddDemo("Blue form", "Opens a blue form", this, () => new BlueForm());
+        var formsGroup = menuTree.API.AddGroup("Forms", tooltip: "A group of items for showing colourful forms!");
+        var redFormMenuItem = formsGroup.AddItem("Red form", "Opens a red form", this, () => new RedForm());
+        formsGroup.AddItem("Blue form", "Opens a blue form", this, () => new BlueForm());
 
         var actionsGroup = menuTree.AddGroup("Actions");
-        actionsGroup.AddDemo("Message box", "Shows a message box", this, ShowMessageBox);
+        actionsGroup.AddItem("Message box", "Shows a message box", ShowMessageBox);
 
-        menuTree.ExpandAllGroups();
+        menuTree.API.ExpandAllGroups();
+        //menuTree.API.SelectMenuItem(redFormMenuItem);
     }
 
     /// <summary>

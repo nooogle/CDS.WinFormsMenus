@@ -39,8 +39,9 @@ public class MenuGroup
     /// <param name="tooltip">The tooltip text for the demo.</param>
     /// <param name="parent">The parent form for the demo.</param>
     /// <param name="createForm">A function to create the form for the demo.</param>
+    [Obsolete("Use AddItem instead.")]
     public void AddDemo(string name, string tooltip, Form parent, Func<Form> createForm) =>
-        _ = new MenuItem(name, tooltip, treeNode, () => RunModalForm(parent, createForm()));
+        AddItem(name, tooltip, parent, createForm);
 
     /// <summary>
     /// Adds a new demo to this group.
@@ -49,8 +50,30 @@ public class MenuGroup
     /// <param name="tooltip">The tooltip text for the demo.</param>
     /// <param name="parent">The parent form for the demo.</param>
     /// <param name="action">An action to execute for the demo.</param>
+    [Obsolete("Use AddItem instead.")]
     public void AddDemo(string name, string tooltip, Form parent, Action action) =>
-        _ = new MenuItem(name, tooltip, treeNode, action);
+        AddItem(name, tooltip, action);
+
+    /// <summary>
+    /// Adds a new item to this group that opens a form as a modal dialog.
+    /// </summary>
+    /// <param name="name">The name of the item.</param>
+    /// <param name="tooltip">The tooltip text for the item.</param>
+    /// <param name="parent">The parent form for the dialog.</param>
+    /// <param name="createForm">A function to create the form to display.</param>
+    /// <returns>The <see cref="MenuItem"/> that was added.</returns>
+    public MenuItem AddItem(string name, string tooltip, Form parent, Func<Form> createForm) =>
+        new MenuItem(name, tooltip, treeNode, () => RunModalForm(parent, createForm()));
+
+    /// <summary>
+    /// Adds a new item to this group that executes an action.
+    /// </summary>
+    /// <param name="name">The name of the item.</param>
+    /// <param name="tooltip">The tooltip text for the item.</param>
+    /// <param name="action">The action to execute when the item is activated.</param>
+    /// <returns>The <see cref="MenuItem"/> that was added.</returns>
+    public MenuItem AddItem(string name, string tooltip, Action action) =>
+        new MenuItem(name, tooltip, treeNode, action);
 
     /// <summary>
     /// Runs the specified form as a modal dialog.
