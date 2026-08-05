@@ -9,8 +9,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageIcon>hierarchical-structure.png</PackageIcon>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <Title>CDS.CLIMenus</Title>
-    <Description>Library for very simple and quick console-app menus. Great for simple demos and test apps.</Description>
+    <Title>CDS.WinFormsMenus</Title>
+    <Description>Very simple WinForms menu controls for basic test and demo apps.</Description>
     <Authors>Jon Shadforth</Authors>
     <Company>Carpe Diem Systems</Company>
     <Copyright>Copyright (c) 2025 Carpe Diem Systems</Copyright>
@@ -20,7 +20,7 @@
     <PackageTags>winforms;treeview;menu;ui;windows-forms;gui</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
-    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerTagPrefix>V</MinVerTagPrefix>
   </PropertyGroup>
 
   <ItemGroup>

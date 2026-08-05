@@ -48,8 +48,8 @@ The available values are `SingleClick` and `DoubleClick`. The Enter key always a
 ## Build Instructions
 
 Follow the standard practice for building a .Net project using MinVer.
-Versions are derived automatically from Git tags (e.g. `v1.2.0`). To publish a
-new release, create and push a tag: `git tag v1.2.0 && git push --tags`.
+Versions are derived automatically from Git tags (e.g. `V1.2.0`). To publish a
+new release, create and push a tag: `git tag V1.2.0 && git push --tags`.
 Between tags, MinVer appends a pre-release suffix automatically (e.g. `1.2.0-alpha.0.3`).
 
 
