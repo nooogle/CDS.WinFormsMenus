@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'V*.*.*'
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  LIBRARY_PROJECT: CDS.WinFormsMenus/CDS.WinFormsMenus.csproj
+  PACKAGE_ID: CDS.WinFormsMenus
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: windows-latest
+    permissions:
+      id-token: write             # required for NuGet OIDC trusted publishing + attestations
+      contents: write             # required for creating GitHub Releases
+      attestations: write         # required for SBOM + build provenance attestations
+
+    environment: nuget
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore ${{ env.LIBRARY_PROJECT }}
+
+      - name: Build
+        run: dotnet build ${{ env.LIBRARY_PROJECT }} --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack ${{ env.LIBRARY_PROJECT }} --configuration Release --no-build --output ./artifacts
+
+      - name: Generate SBOM
+        run: |
+          dotnet tool install --global CycloneDX
+          $version = (Get-ChildItem -Path ./artifacts -Filter "${{ env.PACKAGE_ID }}.*.nupkg").BaseName.Substring("${{ env.PACKAGE_ID }}".Length + 1)
+          dotnet-CycloneDX ${{ env.LIBRARY_PROJECT }} -o ./artifacts -F json -sv $version
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: ./artifacts/*.nupkg
+
+      - name: Attest SBOM
+        uses: actions/attest-sbom@v4
+        with:
+          subject-path: ./artifacts/*.nupkg
+          sbom-path: ./artifacts/bom.json
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: |
+            ./artifacts/*.nupkg
+            ./artifacts/bom.json
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Authenticate with NuGet (Trusted Publishing)
+        uses: NuGet/login@v1
+        id: nuget-auth
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Push package to NuGet.org
+        run: |
+          $pkg = (Get-ChildItem -Path ./artifacts -Filter "${{ env.PACKAGE_ID }}.*.nupkg").FullName
+          dotnet nuget push $pkg --api-key ${{ steps.nuget-auth.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
