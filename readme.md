@@ -1,5 +1,11 @@
 ﻿# CDS.WinFormsMenus
 
+[![CI](https://github.com/nooogle/CDS.WinFormsMenus/actions/workflows/ci.yml/badge.svg)](https://github.com/nooogle/CDS.WinFormsMenus/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/nooogle/CDS.WinFormsMenus/actions/workflows/codeql.yml/badge.svg)](https://github.com/nooogle/CDS.WinFormsMenus/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/nooogle/CDS.WinFormsMenus/badge)](https://securityscorecards.dev/viewer/?uri=github.com/nooogle/CDS.WinFormsMenus)
+[![NuGet](https://img.shields.io/nuget/v/CDS.WinFormsMenus)](https://www.nuget.org/packages/CDS.WinFormsMenus)
+[![License](https://img.shields.io/github/license/nooogle/CDS.WinFormsMenus)](LICENSE.txt)
+
 CDS.WinFormsMenus is a library for creating very simple and quick 
 tree-view based menus on WinForms apps. It is great for simple demo and test applications, where
 a conventional menu doesn't quite fit the pattern. 
